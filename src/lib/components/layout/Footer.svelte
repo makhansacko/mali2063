@@ -11,7 +11,7 @@
       <div class="footer-col">
         <p class="footer-col-title">Mali 2063</p>
         <p class="footer-desc">
-          Une lecture claire et indépendante de la Vision Mali Kura 2063 - 
+          Une lecture indépendante de la Vision Mali Kura 2063 - 
           pour les citoyens, la diaspora, la société civile et le secteur privé.
         </p>
         <p class="footer-powered">
