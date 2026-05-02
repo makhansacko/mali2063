@@ -119,6 +119,7 @@
     color: black;
     font-size: 0.9rem;
     line-height: 1.75;
+    text-align: justify;
   }
 
   .intro-col-inner {
@@ -148,6 +149,7 @@
     color: black;
     font-size: 0.890rem;
     line-height: 1.75;
+    text-align: justify;
   }
 
   /* --- VERTICAL DIVIDER --- */
