@@ -1,2 +1,22 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+  import Hero from '$lib/components/home/Hero.svelte';
+  import Intro from '$lib/components/home/Intro.svelte';
+  import Axes from '$lib/components/home/Axes.svelte';
+  import Projects from '$lib/components/home/Projects.svelte';
+  import Isometric from '$lib/components/home/Isometric.svelte';
+  // import Analyses from '$lib/components/home/Analyses.svelte';
+</script>
+
+<main>
+  <Hero />
+  <Intro /> 
+  <Axes /> 
+  <Isometric />
+  <Projects />
+  <!--<Analyses />-->
+</main>
+
+<style>
+
+</style>
+

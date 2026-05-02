@@ -1,0 +1,295 @@
+/* ============================================
+   MALI 2063 — GLOBAL DESIGN SYSTEM
+   ============================================ */
+
+/* --- CSS VARIABLES --- */
+:root {
+    /* Core palette — Mali 2063 */
+    --color-blue-deep:   #30588C;
+    --color-blue-mid:    #4E9FBF;
+    --color-green:       #679436;
+    --color-brown:       #736555;
+    --color-sand:        #D9A273;
+    --color-sand-light:  #F2E0CC;
+    --color-sand-pale:   #F9FBFA;
+  
+    /* Derived */
+    --color-night:       #1A2E4A;
+    --color-night-mid:   #243D5E;
+    --color-sand-dark:   #C4885A;
+  
+    /* Semantic */
+    --color-primary:     #30588C;
+    --color-accent:      #D9A273;
+    --color-accent-hover:#C4885A;
+    --color-success:     #679436;
+    --color-muted:       #736555;
+  
+    /* Axis colors — mapped to palette */
+    --axe-1: #30588C;
+    --axe-2: #1A2E4A;
+    --axe-3: #D9A273;
+    --axe-4: #679436;
+    --axe-5: #4E9FBF;
+  
+    /* Typography — Inter throughout */
+    --font-display: 'Inter', system-ui, sans-serif;
+    --font-mono:    'Inter', system-ui, sans-serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+
+    /* Typescale — ratio 1.333 (Major Third) */
+    --text-xs:   0.5625rem;   /* step -2 */
+    --text-sm:   0.75rem;     /* step -1 */
+    --text-base: 0.890rem;        /* step 0 */
+    --text-lg:   1.333rem;    /* step 1 */
+    --text-xl:   1.777rem;    /* step 2 */
+    --text-2xl:  2.37rem;     /* step 3 */
+    --text-3xl:  3.16rem;     /* step 4 */
+    --text-4xl:  4.21rem;     /* step 5 */
+  
+    /* Spacing scale */
+    --space-xs:  0.25rem;
+    --space-sm:  0.5rem;
+    --space-md:  1rem;
+    --space-lg:  1.5rem;
+    --space-xl:  2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+  
+    /* Layout */
+    --max-width: 1100px;
+    --border-radius: 2px;
+  
+    /* Shadows */
+    --shadow-sm: 0 1px 4px rgba(48, 88, 140, 0.08);
+    --shadow-md: 0 4px 16px rgba(48, 88, 140, 0.12);
+    --shadow-lg: 0 8px 32px rgba(48, 88, 140, 0.16);
+  }
+  
+  /* --- RESET --- */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* --- BASE --- */
+  html {
+    font-size: 18px;
+  }
+  
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--color-night);
+    background: var(--color-sand-pale);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* --- TYPOGRAPHY --- */
+  h1, h2, h3, h4 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-night);
+  }
+  
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+  h3 { font-size: var(--text-2xl); }
+  h4 { font-size: var(--text-xl); }
+  
+  p {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: black;
+  }
+  
+  /* --- LINKS --- */
+  a {
+    color: var(--color-blue-deep);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  a:hover { color: var(--color-blue-mid); }
+  
+  /* --- UTILITY CLASSES --- */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+  }
+  
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+  
+  .text-accent  { color: var(--color-accent); }
+  .text-muted   { color: var(--color-muted); }
+  .text-mono    { font-family: var(--font-mono); }
+  .text-primary { color: var(--color-primary); }
+  
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  
+  /* --- BUTTONS --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+  }
+  
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-night);
+  }
+  
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    color: var(--color-night);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+  
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+  
+  .btn-dark {
+    background: var(--color-night);
+    color: var(--color-sand);
+  }
+  
+  .btn-dark:hover {
+    background: var(--color-night-mid);
+    color: var(--color-sand-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* --- CARDS --- */
+  .card {
+    background: white;
+    border: 1px solid rgba(115, 101, 85, 0.15);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s, transform 0.2s;
+    border-radius: var(--border-radius);
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  
+  /* --- DIVIDER --- */
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--color-accent);
+    margin: var(--space-md) 0;
+  }
+  
+  /* --- SCROLLBAR --- */
+  ::-webkit-scrollbar { width: 14px; }
+  ::-webkit-scrollbar-track { background: var(--color-sand-pale); }
+  ::-webkit-scrollbar-thumb { background: var(--color-blue-deep); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-night); }
+  
+  /* --- SELECTION --- */
+  ::selection {
+    background: rgba(217, 162, 115, 0.3);
+    color: var(--color-night);
+  }
+
+  #smooth-wrapper {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  
+  #smooth-content {
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* --- HEADER --- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26, 46, 74, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(217, 162, 115, 0.2);
+  }
+  header .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: var(--space-xl);
+  }
+  header nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  header .nav-link {
+    position: relative;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    padding: 0.5rem 0.85rem;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  header .nav-link:hover {
+    color: white;
+  }
+  header .nav-link.active {
+    color: var(--color-sand);
+  }
+  header .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0.85rem;
+    right: 0.85rem;
+    height: 1px;
+    background: var(--color-sand);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  header .nav-link:hover::after,
+  header .nav-link.active::after {
+    transform: scaleX(1);
+  }

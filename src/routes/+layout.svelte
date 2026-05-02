@@ -1,11 +1,22 @@
-<script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
-
-	let { children } = $props();
-</script>
-
 <svelte:head>
-	<link rel="icon" href={favicon} />
+  <link rel="preload" href="/isometric.webp" as="image" type="image/svg+xml">
 </svelte:head>
 
-{@render children()}
+<script>
+  import { dev } from '$app/environment';
+  import { injectAnalytics } from '@vercel/analytics/sveltekit';
+  import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+  import '$lib/styles/global.css';
+  import Header from '$lib/components/layout/Header.svelte';
+  import Footer from '$lib/components/layout/Footer.svelte';
+  import ChatWidget from '$lib/components/chat/ChatWidget.svelte';
+  
+
+  injectAnalytics({ mode: dev ? 'development' : 'production' });
+  injectSpeedInsights();
+</script>
+
+    <Header />
+    <slot />
+    <Footer />
+    <ChatWidget />

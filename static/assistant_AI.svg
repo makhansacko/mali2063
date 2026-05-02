@@ -1,0 +1,40 @@
+<svg width="400" height="250" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Bottom disk gradient -->
+    <linearGradient id="bottomGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0E0E0"/>
+      <stop offset="100%" stop-color="#BDBDBD"/>
+    </linearGradient>
+
+    <!-- Top disk gradient -->
+    <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5"/>
+      <stop offset="100%" stop-color="#CFCFCF"/>
+    </linearGradient>
+
+    <!-- Overlap -->
+    <linearGradient id="overlapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#D9D9D9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Bottom disk -->
+  <ellipse cx="200" cy="150" rx="140" ry="60"
+           fill="url(#bottomGrad)"
+           transform="rotate(-15 200 150)" />
+
+  <!-- Top disk -->
+  <ellipse cx="200" cy="110" rx="140" ry="60"
+           fill="url(#topGrad)"
+           transform="rotate(-15 200 110)"
+           opacity="0.95"/>
+
+  <!-- Overlap disk -->
+  <ellipse cx="200" cy="130" rx="120" ry="50"
+           fill="url(#overlapGrad)"
+           transform="rotate(-15 200 130)"
+           opacity="0.9"/>
+
+</svg>
