@@ -99,4 +99,10 @@
     color: var(--color-blue-deep);
     font-weight: 700;
   }
+
+  @media (max-width: 768px) {
+  .header-inner {
+    padding: 0 1rem;
+  }
+}
 </style>
