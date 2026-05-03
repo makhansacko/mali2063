@@ -25,6 +25,8 @@
     padding: 0;
     overflow: hidden;
     scroll-margin-top: 5rem;
+    position: relative;
+    z-index: 0;
   }
 
   .isometric-inner {

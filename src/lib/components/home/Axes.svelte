@@ -168,6 +168,8 @@
   .axes {
     background: white;
     scroll-margin-top: 5.5rem;
+    position: relative;
+    z-index: 1;
   }
 
   .section-header {
