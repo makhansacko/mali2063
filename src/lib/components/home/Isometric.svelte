@@ -43,13 +43,12 @@
     width: 100%;
     height: auto;
     display: block;
-    /* % sur margin-top = % de la largeur du parent → effet très différent mobile / desktop */
-    margin-top: 0;
+    margin-top: -35%;
   }
 
   @media (min-width: 901px) {
     .isometric-img {
-      margin-top: -35%;
+      margin-top: -10%;
     }
   }
 
