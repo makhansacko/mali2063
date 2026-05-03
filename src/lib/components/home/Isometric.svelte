@@ -50,7 +50,7 @@
 
   @media (max-width: 768px) {
   .isometric-img {
-    margin-top: -15%;
+    margin-top: -10%;
   }
 }
 
