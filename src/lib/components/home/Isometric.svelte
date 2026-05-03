@@ -46,10 +46,16 @@
     margin-top: -35%;
   }
 
-  @media (min-width: 901px) {
-    .isometric-img {
-      margin-top: -10%;
-    }
+  @media (max-width: 768px) {
+  .isometric-img {
+    margin-top: -15%;
+  }
+}
+
+@media (max-width: 480px) {
+  .isometric-img {
+    margin-top: -8%;
+  }
   }
 
   @keyframes float {
