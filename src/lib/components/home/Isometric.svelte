@@ -22,7 +22,7 @@
 <style>
   .isometric-section {
     background: white;
-    padding: 5rem 0 3rem;
+    padding: 0;
     overflow: hidden;
     scroll-margin-top: 5rem;
   }
@@ -43,6 +43,7 @@
     width: 100%;
     height: auto;
     display: block;
+    margin-top: -35%
   }
 
   @keyframes float {

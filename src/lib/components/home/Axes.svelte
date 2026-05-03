@@ -159,9 +159,14 @@
 </section>
 
 <style>
+  /* Bat le padding de .section (4rem bas) qui créait un grand vide avant Isometric */
+  section.axes.section {
+    padding-top: var(--space-3xl);
+    padding-bottom: 0;
+  }
+
   .axes {
     background: white;
-    padding-bottom: 0;
     scroll-margin-top: 5.5rem;
   }
 
