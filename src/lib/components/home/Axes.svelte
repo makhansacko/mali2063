@@ -79,12 +79,12 @@
         id={axe.id}
         class="axe-panel"
         class:active={isActive}
-        style="--axe-color: {axe.color}; --axe-image: {axe.id === 'axe-1' ? 'url(/axes/axe1.jpg)' : 'none'}"
+        style="--axe-color: {axe.color}"
         on:click={() => toggle(axe.id)}
         aria-expanded={isActive}
       >
         <!-- Background -->
-        <div class="axe-panel-bg" class:axe-panel-bg--photo={axe.id === 'axe-1'}></div>
+        <div class="axe-panel-bg"></div>
 
         <!-- COLLAPSED STATE — always visible -->
         <div class="axe-panel-collapsed">
@@ -223,52 +223,11 @@
     position: absolute;
     inset: 0;
     background-color: var(--axe-color);
-    background-image: var(--axe-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     z-index: 0;
     transition: filter 0.3s ease;
   }
 
-  /* Axe avec photo : image + voile couleur (style proche des tuiles ODD / UN SDGs) */
-  .axe-panel-bg--photo {
-    background-image: none;
-  }
-
-  .axe-panel-bg--photo::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image: var(--axe-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-  }
-
-  .axe-panel-bg--photo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: var(--axe-color);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .axe-panel:hover .axe-panel-bg--photo::after {
-    opacity: 1;
-  }
-
-  .axe-panel:hover .axe-panel-bg--photo::before {
-    opacity: 0.72;
-  }
-
-  .axe-panel:hover .axe-panel-bg:not(.axe-panel-bg--photo) {
+  .axe-panel:hover .axe-panel-bg {
     filter: brightness(1.08);
   }
 
