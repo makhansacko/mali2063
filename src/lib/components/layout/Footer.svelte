@@ -1,224 +1,322 @@
 <script lang="ts">
-    import { axes } from '$lib/data/vision';
-  
-    const currentYear = new Date().getFullYear();
-  </script>
-  
-  <footer>
-    <div class="container footer-inner">
-  
-      <!-- COLUMN 1 — About -->
-      <div class="footer-col">
-        <p class="footer-col-title">Mali 2063</p>
-        <p class="footer-desc">
-          Une lecture indépendante de la Vision Mali Kura 2063 - 
-          pour les citoyens, la diaspora, la société civile et le secteur privé.
-        </p>
-        <p class="footer-powered">
-          Powered by <a href="https://sahelanalytics.com" target="_blank">Sahel Analytics</a>
-        </p>
-        <p class="footer-logo">
-          <a href="https://sahelanalytics.com" target="_blank" class="footer-logo-link">
-            <img src="/logo_sahel.png" alt="Sahel Analytics" class="footer-logo" />
-          </a>
-        </p>
+  import { axes } from '$lib/data/vision';
+
+  const currentYear = new Date().getFullYear();
+
+  let email = '';
+  let subscribed = false;
+
+  async function subscribe() {
+  if (!email.trim()) return;
+
+  try {
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    if (response.ok) {
+      subscribed = true;
+      email = '';
+    } else {
+      const data = await response.json();
+      console.error(data.error);
+    }
+  } catch (error) {
+    console.error('Erreur réseau', error);
+  }
+}
+</script>
+
+<footer>
+  <div class="container footer-inner">
+
+    <!-- COLUMN 1 — About -->
+    <div class="footer-col">
+      <p class="footer-col-title">Mali 2063</p>
+      <p class="footer-desc">
+        Une lecture indépendante de la Vision Mali 2063 -
+        pour les citoyens, la diaspora, la société civile et le secteur privé.
+      </p>
+      <div class="footer-powered">
+        <p class="footer-powered-label">Powered by</p>
+        <a href="https://sahelanalytics.com" target="_blank" class="footer-logo-link">
+          <img src="/logo_sahel.png" alt="Sahel Analytics" class="footer-logo-img" />
+        </a>
       </div>
-  
-      <!-- COLUMN 2 — Navigation -->
-      <div class="footer-col">
-        <p class="footer-col-title">Navigation</p>
-        <ul class="footer-links">
+    </div>
+
+    <!-- COLUMN 2 — Navigation -->
+    <div class="footer-col">
+      <p class="footer-col-title">Navigation</p>
+      <ul class="footer-links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/apropos">À Propos</a></li>
+      </ul>
+    </div>
+
+    <!-- COLUMN 3 — Axes -->
+    <div class="footer-col">
+      <p class="footer-col-title">Les 5 Axes (SNEDD 2024–2033)</p>
+      <ul class="footer-links">
+        {#each axes as axe}
           <li>
-            <a href="/">La Vision</a>
-          </li>
-        </ul>
-      </div>
-  
-      <!-- COLUMN 3 — Axes -->
-      <div class="footer-col">
-        <p class="footer-col-title">Les 5 Axes (SNEDD 2024–2033)</p>
-        <ul class="footer-links">
-          {#each axes as axe}
-            <li>
-              <a href="/#{axe.id}">
-                <span class="axe-dot" style="background: {axe.color}"></span>
-                {axe.label}
-              </a>
-            </li>
-          {/each}
-        </ul>
-      </div>
-  
-      <!-- COLUMN 4 — Contact -->
-      <div class="footer-col">
-        <p class="footer-col-title">Contact</p>
-        <ul class="footer-links">
-          <!--<li><a href="/apropos">À Propos</a></li>-->
-         <li><a href="mailto:info@msahelanalytics.com">info@sahelanalytics.com</a></li>
-          <!--<li>
-            <a href="https://github.com/makhansacko/mali2063" target="_blank">
-              GitHub - Code source
+            <a href="/#{axe.id}">
+              <span class="axe-dot" style="background: {axe.color}"></span>
+              {axe.label}
             </a>
-          </li>-->
-        </ul>
-      </div>
-  
+          </li>
+        {/each}
+      </ul>
     </div>
-  
-    <!-- BOTTOM BAR -->
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <p class="footer-legal">
-          Plateforme indépendante. Non affiliée au Gouvernement du Mali.
+
+    <!-- COLUMN 4 — Newsletter + Contact -->
+    <div class="footer-col">
+      <p class="footer-col-title">Restez informés</p>
+      {#if subscribed}
+        <p class="subscribe-confirm">
+          ✓ Merci — vous serez notifié des prochaines publications.
         </p>
-        <p class="footer-copy">
-          © {currentYear} Sahel Analytics · Licence GPL v3 · Open Source
+      {:else}
+        <p class="footer-newsletter-desc">
+          Recevez les nouvelles analyses et mises à jour de la plateforme.
         </p>
-      </div>
+        <div class="footer-subscribe">
+          <input
+            type="email"
+            bind:value={email}
+            placeholder="votre@email.com"
+            class="footer-email-input"
+          />
+          <button class="footer-subscribe-btn" on:click={subscribe}>
+            →
+          </button>
+        </div>
+      {/if}
+
+      <p class="footer-col-title" style="margin-top: 1.5rem;">Contact</p>
+      <ul class="footer-links">
+        <li>
+          <a href="mailto:info@sahelanalytics.com">info@sahelanalytics.com</a>
+        </li>
+      </ul>
     </div>
-  
-  </footer>
-  
-  <style>
-    footer {
-      background: var(--color-night);
-      border-top: 1px solid rgba(217, 162, 115, 0.15);
-    }
-  
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p class="footer-legal">
+        Plateforme indépendante. Non affiliée au Gouvernement du Mali.
+      </p>
+      <p class="footer-copy">
+        © {currentYear} Sahel Analytics · Licence GPL v3 · Open Source
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+<style>
+  footer {
+    background: var(--color-night);
+    border-top: 1px solid rgba(217, 162, 115, 0.15);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr 1fr;
+    gap: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* --- COLUMNS --- */
+  .footer-col-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-sand);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-desc {
+    font-size: 0.85rem;
+    color: white;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  /* --- POWERED BY --- */
+  .footer-powered {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-powered-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  .footer-logo-link {
+    display: inline-block;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .footer-logo-link:hover {
+    opacity: 1;
+  }
+
+  .footer-logo-img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  /* --- LINKS --- */
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-links a {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-sand);
+  }
+
+  .axe-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  /* --- NEWSLETTER --- */
+  .footer-newsletter-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-subscribe {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-email-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-right: none;
+    padding: 0.6rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .footer-email-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .footer-email-input:focus {
+    border-color: var(--color-sand);
+  }
+
+  .footer-subscribe-btn {
+    background: var(--color-sand);
+    color: var(--color-night);
+    border: none;
+    padding: 0.6rem 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .footer-subscribe-btn:hover {
+    background: white;
+  }
+
+  .subscribe-confirm {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-sand);
+    line-height: 1.5;
+  }
+
+  /* --- BOTTOM BAR --- */
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .footer-bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    gap: 1rem;
+  }
+
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
     .footer-inner {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1.5fr 1fr;
-      gap: 3rem;
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
-  
-    /* --- COLUMNS --- */
-    .footer-col-title {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--color-sand);
-      margin-bottom: 1.25rem;
-    }
-  
-    .footer-desc {
-      font-size: 0.85rem;
-      color: white;
-      line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-  
-    .footer-powered {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: white;
-      letter-spacing: 0.05em;
-    }
-  
-    .footer-powered a {
-      color: var(--color-sand);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-  
-    .footer-powered a:hover {
-      color: white;
+  }
+
+  @media (max-width: 600px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
     }
 
-    .footer-logo {
-      height: 70px;
-      width: auto;
-      display: block;
-      padding-top: 1rem;
-    }
-
-    .footer-logo-link {
-      display: inline-block;
-      opacity: 0.85;
-      transition: opacity 0.2s;
-    }
-    
-  
-    /* --- LINKS --- */
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
+    .footer-bottom-inner {
       flex-direction: column;
-      gap: 0.6rem;
-    }
-  
-    .footer-links a {
-      font-size: 0.82rem;
-      color: white;
-      text-decoration: none;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
     }
-  
-    .footer-links a:hover {
-      color: var(--color-sand);
-    }
-  
-    .axe-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: inline-block;
-    }
-  
-    /* --- BOTTOM BAR --- */
-    .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-  
-    .footer-bottom-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.25rem;
-      padding-bottom: 1.25rem;
-      gap: 1rem;
-    }
-  
-    .footer-legal {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: white;
-      letter-spacing: 0.05em;
-    }
-  
-    .footer-copy {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: white;
-      letter-spacing: 0.05em;
-    }
-  
-    /* --- RESPONSIVE --- */
-    @media (max-width: 900px) {
-      .footer-inner {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-      }
-    }
-  
-    @media (max-width: 600px) {
-      .footer-inner {
-        grid-template-columns: 1fr;
-      }
-  
-      .footer-bottom-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-    }
-  </style>
+  }
+</style>
