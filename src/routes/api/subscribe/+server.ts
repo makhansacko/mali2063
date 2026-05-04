@@ -21,7 +21,7 @@ export const POST: RequestHandler = async ({ request }) => {
       },
       body: JSON.stringify({
         email,
-        listIds: [3],
+        listIds: [2],
         updateEnabled: true
       })
     });
