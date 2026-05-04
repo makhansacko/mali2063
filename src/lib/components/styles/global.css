@@ -76,6 +76,10 @@
   /* --- BASE --- */
   html {
     font-size: 18px;
+    /* Avoid default white showing past footer on mobile overscroll */
+    background-color: var(--color-sand-pale);
+    overscroll-behavior-y: contain;
+    overflow-x: clip;
   }
   
   body {
@@ -85,6 +89,7 @@
     background: var(--color-sand-pale);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: contain;
   }
   
   /* --- TYPOGRAPHY --- */

@@ -88,7 +88,8 @@
   .hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100vh; /* fallback */
+    min-height: 100dvh; /* mobile dynamic toolbar — avoids extra document height vs visual viewport */
     overflow: hidden;
     display: flex;
     align-items: center;

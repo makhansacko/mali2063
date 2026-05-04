@@ -123,6 +123,8 @@
   footer {
     background: var(--color-night);
     border-top: 1px solid rgba(217, 162, 115, 0.15);
+    /* Fill iPhone home-indicator band so body sand doesn’t read as a “gap” under the footer */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   .footer-inner {
