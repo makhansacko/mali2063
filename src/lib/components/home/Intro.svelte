@@ -219,4 +219,12 @@
       font-size: 1.25rem;
     }
   }
+
+  /* Short landscape viewports: body <p> matches the 0.85rem callout ("Les 5 axes…", etc.) */
+  @media (orientation: landscape) and (max-height: 720px) and (max-width: 1200px) {
+    .intro-col p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+  }
 </style>
