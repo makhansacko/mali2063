@@ -566,11 +566,27 @@
   }
 
   /* --- RESPONSIVE --- */
-    @media (max-height: 500px) {
+  /* Mobile portrait */
+@media (max-width: 520px) {
+  .chat-panel {
+    width: calc(100vw - 2rem);
+    right: 1rem;
+    bottom: 5rem;
+    max-height: calc(100vh - 7rem);
+  }
+
+  .chat-toggle {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+/* Mobile landscape */
+@media (max-height: 500px) and (orientation: landscape) {
   .chat-panel {
     bottom: 1rem;
     max-height: calc(100vh - 2rem);
-    width: calc(100vw - 2rem);
+    width: 360px;
     right: 1rem;
   }
 
