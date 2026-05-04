@@ -175,7 +175,7 @@
           </div>
           <div>
             <p class="chat-name">SaheL'IA</p>
-            <p class="chat-tagline">Ton assistant pour comprendre la Vision Mali Kura 2063</p>
+            <p class="chat-tagline">Ton assistant pour comprendre la Vision Mali 2063</p>
           </div>
         </div>
         <button class="chat-close" on:click={toggleChat}>✕</button>
