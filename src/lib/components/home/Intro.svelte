@@ -115,9 +115,10 @@
     color: var(--color-night);
   }
 
+  /* One body size for both columns (avoids 0.9rem vs 0.890rem mismatch, esp. landscape) */
   .intro-col p {
     color: black;
-    font-size: 0.9rem;
+    font-size: var(--text-base);
     line-height: 1.75;
   }
 
@@ -142,12 +143,6 @@
 
   .intro-cover:hover .intro-cover-img {
     transform: scale(1.02);
-  }
-
-  .intro-col-text p {
-    color: black;
-    font-size: 0.890rem;
-    line-height: 1.75;
   }
 
   /* --- VERTICAL DIVIDER --- */
@@ -201,6 +196,27 @@
 
     .intro-col {
       padding: 0;
+    }
+  }
+
+  /* Phone / small tablet landscape: width can exceed 768px but two columns stay cramped */
+  @media (orientation: landscape) and (max-height: 520px) and (max-width: 1024px) {
+    .intro-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .intro-divider {
+      width: 100%;
+      height: 1px;
+      margin: 1.5rem 0;
+    }
+
+    .intro-col {
+      padding: 0;
+    }
+
+    .intro-col h2 {
+      font-size: 1.25rem;
     }
   }
 </style>
