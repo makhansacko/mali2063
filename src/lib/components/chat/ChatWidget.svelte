@@ -566,16 +566,17 @@
   }
 
   /* --- RESPONSIVE --- */
-  @media (max-width: 520px) {
-    .chat-panel {
-      width: calc(100vw - 2rem);
-      right: 1rem;
-      bottom: 5rem;
-    }
-
-    .chat-toggle {
-      right: 1rem;
-      bottom: 1rem;
-    }
+    @media (max-height: 500px) {
+  .chat-panel {
+    bottom: 1rem;
+    max-height: calc(100vh - 2rem);
+    width: calc(100vw - 2rem);
+    right: 1rem;
   }
+
+  .chat-toggle {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
 </style>
