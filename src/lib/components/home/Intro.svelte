@@ -7,7 +7,7 @@
     <!-- LEFT — Vision Mali 2063 -->
     <div class="intro-col">
       <p class="label">Le cadre de référence</p>
-      <h2>Vision Mali Kura 2063</h2>
+      <h2>Vision Mali 2063</h2>
       <div class="divider"></div>
 
       <div class="intro-col-inner">

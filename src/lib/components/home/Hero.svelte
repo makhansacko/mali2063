@@ -72,7 +72,7 @@
     {/each}
   </h1>
 
-  <p class="hero-subtitle">Une lecture indépendante de la Vision Mali Kura 2063 - pour les citoyens, la diaspora, la société civile et le secteur privé.</p>
+  <p class="hero-subtitle">Une lecture indépendante de la Vision Mali 2063 - pour les citoyens, la diaspora, la société civile et le secteur privé.</p>
 
 
   <!-- SCROLL INDICATOR -->
