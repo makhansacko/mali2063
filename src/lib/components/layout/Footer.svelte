@@ -76,7 +76,7 @@
       <p class="footer-col-title">Restez informés</p>
       {#if subscribed}
         <p class="subscribe-confirm">
-          ✓ Merci — vous serez notifié des prochaines publications.
+          ✓ Merci - vous serez notifié des prochaines publications.
         </p>
       {:else}
         <p class="footer-newsletter-desc">
