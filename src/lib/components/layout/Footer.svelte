@@ -52,7 +52,7 @@
       <p class="footer-col-title">Navigation</p>
       <ul class="footer-links">
         <li><a href="/">Accueil</a></li>
-        <li><a href="/apropos">À Propos</a></li>
+        <!-- <li><a href="/apropos">À propos</a></li> -->
       </ul>
     </div>
 
