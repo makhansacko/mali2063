@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
+  import { browser } from '$app/environment';
   import { axes, projects } from '$lib/data/vision';
 
   let currentIndicator: Record<string, number> = Object.fromEntries(
@@ -7,6 +8,9 @@
   );
 
   let intervals: ReturnType<typeof setInterval>[] = [];
+
+  let saheliaLottieCanvas: HTMLCanvasElement | undefined;
+  let saheliaDotLottie: { destroy: () => void } | undefined;
 
   onMount(() => {
     projects.forEach(project => {
@@ -21,6 +25,37 @@
         intervals.push(interval);
       }
     });
+
+    let cancelled = false;
+
+    void (async () => {
+      if (!browser) return;
+      await tick();
+      if (cancelled || !saheliaLottieCanvas) return;
+
+      const [{ DotLottie }, wasmMod] = await Promise.all([
+        import('@lottiefiles/dotlottie-web'),
+        import('@lottiefiles/dotlottie-web/dotlottie-player.wasm?url')
+      ]);
+      if (cancelled || !saheliaLottieCanvas) return;
+
+      DotLottie.setWasmUrl(wasmMod.default);
+      saheliaDotLottie = new DotLottie({
+        canvas: saheliaLottieCanvas,
+        src: '/animations/ai.lottie',
+        loop: true,
+        autoplay: true,
+        layout: { fit: 'contain', align: [0.5, 0.5] },
+        backgroundColor: 'transparent',
+        renderConfig: { autoResize: true }
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+      saheliaDotLottie?.destroy();
+      saheliaDotLottie = undefined;
+    };
   });
 
   onDestroy(() => {
@@ -151,7 +186,7 @@
           <!-- SAHELIA CARD -->
 <div class="sahelia-card">
   <div class="sahelia-icon">
-    <img src="/logo_sahelIA2.png" alt="Sahelia" class="sahelia-svg" />
+    <canvas bind:this={saheliaLottieCanvas} class="sahelia-lottie" aria-label="SaheL'IA"></canvas>
   </div>
   <h3 class="sahelia-title">Des questions sur les projets structurants ?</h3>
   <p class="sahelia-desc">
@@ -369,13 +404,21 @@
   gap: 1rem;
 }
 
-.sahelia-svg {
+.sahelia-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+}
+
+.sahelia-lottie {
   display: block;
-  max-width: 2.2rem;
-  max-height: 2.2rem;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  max-width: 4rem;
+  max-height: 4rem;
 }
 
 .sahelia-title {
