@@ -64,7 +64,7 @@
         <div class="intro-col-text">
           <p>
             En décembre 2024, le gouvernement du Mali a publié la Vision Mali Kura 
-            2063 (MALI KURA NƐTAASIRA KA BƐN SAN 2063 MA) — un cadre de développement 
+            2063 (MALI KURA NƐTAASIRA KA BƐN SAN 2063 MA) - un cadre de développement 
             national sur quarante ans, organisé autour de 4 phases décennales et 
             11 projets structurants couvrant l'ensemble du territoire malien.
           </p>
