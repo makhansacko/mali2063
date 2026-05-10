@@ -1,5 +1,5 @@
 <script lang="ts">
-  /* Alignées sur le dégradé de la flèche (intro-phases-mali-gradient) */
+  /* Palette phases : vert → or → rouge (cohérente avec la charte Mali 2063) */
   const phases = [
     {
       period: '2024–2033',
@@ -74,52 +74,6 @@
       <!-- PHASES CYCLE -->
       <div class="phases-cycle">
         <p class="phases-label">Les 4 phases décennales</p>
-
-        <div class="phases-arrow">
-          <div class="phases-arrow-stack">
-            <svg
-              class="phases-arrow-svg"
-              viewBox="0 0 240 10"
-              preserveAspectRatio="xMidYMid meet"
-              aria-hidden="true"
-            >
-              <defs>
-                <linearGradient
-                  id="intro-phases-mali-gradient"
-                  x1="0"
-                  y1="0"
-                  x2="240"
-                  y2="0"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop offset="0%" stop-color="#4a9e72" />
-                  <stop offset="44%" stop-color="#d8c06f" />
-                  <stop offset="100%" stop-color="#c45450" />
-                </linearGradient>
-              </defs>
-            <line
-              x1="1"
-              y1="5"
-              x2="204"
-              y2="5"
-              stroke="url(#intro-phases-mali-gradient)"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-            <!-- Pointe à droite (sens du temps) : sommet à x=228, pas à gauche -->
-            <path
-              d="M 206 1.35 L 228 5 L 206 8.65"
-              stroke="url(#intro-phases-mali-gradient)"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            </svg>
-            <!-- Halo CSS (SMIL sur linearGradient est peu fiable dans les navigateurs) -->
-            <div class="phases-arrow-shimmer" aria-hidden="true"></div>
-          </div>
-        </div>
 
         <div class="phases-tabs">
           {#each phases as phase, i}
@@ -289,65 +243,6 @@
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(115, 101, 85, 0.12);
-  }
-
-  /* --- PHASES ARROW : trait + chevron SVG (plat, pas de “tube”) --- */
-  .phases-arrow {
-    margin-bottom: 0.65rem;
-    width: 100%;
-  }
-
-  .phases-arrow-stack {
-    position: relative;
-    width: 100%;
-  }
-
-  .phases-arrow-svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 18px;
-    aspect-ratio: 200 / 10;
-    overflow: visible;
-  }
-
-  .phases-arrow-shimmer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: 999px;
-    /* Or chaud : lisible sur vert / or / rouge du trait (screen éclaircit le pigment) */
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 214, 140, 0) 28%,
-      rgba(255, 248, 220, 0.72) 46%,
-      rgba(255, 228, 160, 0.85) 50%,
-      rgba(255, 248, 220, 0.72) 54%,
-      rgba(255, 214, 140, 0) 72%,
-      transparent 100%
-    );
-    background-size: 36% 100%;
-    background-repeat: no-repeat;
-    background-position: -20% 50%;
-    mix-blend-mode: screen;
-    animation: phases-arrow-shimmer 2.8s ease-in-out infinite;
-  }
-
-  @keyframes phases-arrow-shimmer {
-    0% {
-      background-position: -25% 50%;
-    }
-    100% {
-      background-position: 125% 50%;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .phases-arrow-shimmer {
-      animation: none;
-      opacity: 0;
-    }
   }
 
   /* Chaîne plus spécifique que `.intro-col p { color: black }` (le label est un <p>) */
