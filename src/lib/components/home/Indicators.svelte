@@ -342,7 +342,7 @@
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #555555;
+    color: var(--color-night-mid);
     line-height: 1.3;
     margin: 0;
     flex: 1;
@@ -441,6 +441,7 @@
     color: #aaaaaa;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    opacity: 1;
   }
 
   .ind-unit {
