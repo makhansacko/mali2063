@@ -11,7 +11,6 @@
   
     <ArticleHero
       titre="YEELEN KURA : décrypter le pari énergétique du Mali"
-      resume="100% d'accès à l'électricité et 70% d'énergies renouvelables d'ici 2063 — les conditions de réussite du projet structurant le plus ambitieux."
       auteur="Sahel Analytics"
       auteurTitre="Équipe de recherche"
       date="2026-03-01"

@@ -803,6 +803,79 @@ export type SpecificObjective = {
       baseline: 54,
       baselineYear: 2022,
       targets: { 2033: 25, 2043: 15, 2053: 9, 2063: 5 }
+    },
+
+    {
+      id: 'ind-employment',
+      label: 'Taux d\'emploi décent',
+      unit: '%',
+      baseline: 35,
+      baselineYear: 2022,
+      targets: { 2033: 50, 2043: 62, 2053: 74, 2063: 85 }
+    },
+    {
+      id: 'ind-schooling',
+      label: 'Taux de scolarisation primaire',
+      unit: '%',
+      baseline: 68,
+      baselineYear: 2022,
+      targets: { 2033: 85, 2043: 93, 2053: 98, 2063: 100 }
+    },
+    {
+      id: 'ind-governance',
+      label: 'Score de gouvernance (CPIA)',
+      unit: '/6',
+      baseline: 2.8,
+      baselineYear: 2022,
+      targets: { 2033: 3.5, 2043: 4.2, 2053: 4.8, 2063: 5.2 }
+    },
+    {
+      id: 'ind-women-economic',
+      label: 'Femmes dans l\'emploi formel',
+      unit: '%',
+      baseline: 22,
+      baselineYear: 2022,
+      targets: { 2033: 32, 2043: 42, 2053: 52, 2063: 60 }
+    },
+    {
+      id: 'ind-maternal',
+      label: 'Mortalité maternelle',
+      unit: 'p. 100k naissances',
+      baseline: 325,
+      baselineYear: 2022,
+      targets: { 2033: 194, 2043: 138, 2053: 98, 2063: 70 }
+    },
+    {
+      id: 'ind-fdi',
+      label: 'Investissements directs étrangers',
+      unit: '% PIB',
+      baseline: 2.1,
+      baselineYear: 2022,
+      targets: { 2033: 5, 2043: 8, 2053: 11, 2063: 15 }
+    },
+    {
+      id: 'ind-agri-gdp',
+      label: 'Part agriculture dans le PIB',
+      unit: '%',
+      baseline: 38,
+      baselineYear: 2022,
+      targets: { 2033: 32, 2043: 26, 2053: 20, 2063: 15 }
+    },
+    {
+      id: 'ind-youth-unemployment',
+      label: 'Chômage des jeunes',
+      unit: '%',
+      baseline: 28,
+      baselineYear: 2022,
+      targets: { 2033: 20, 2043: 14, 2053: 9, 2063: 5 }
+    },
+    {
+      id: 'ind-sanitation',
+      label: 'Accès à l\'assainissement de base',
+      unit: '%',
+      baseline: 42,
+      baselineYear: 2022,
+      targets: { 2033: 65, 2043: 80, 2053: 92, 2063: 100 }
     }
   ];
   

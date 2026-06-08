@@ -10,7 +10,6 @@
 
   <ArticleHero
     titre="FARAFINNA JIGINƐ : les agropoles comme levier de souveraineté alimentaire"
-    resume="Analyse du potentiel agro-industriel malien et des conditions de réussite du premier projet structurant de la Vision 2063."
     auteur="Sahel Analytics"
     auteurTitre="Équipe de recherche"
     date="2026-02-15"

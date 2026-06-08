@@ -52,6 +52,8 @@
       <p class="footer-col-title">Navigation</p>
       <ul class="footer-links">
         <li><a href="/">Accueil</a></li>
+        <li><a href="/indicateurs">Indicateurs</a></li>
+        <!-- <li><a href="/analyses">Analyses</a></li> -->
         <!-- <li><a href="/apropos">À propos</a></li> -->
       </ul>
     </div>

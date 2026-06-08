@@ -2,7 +2,6 @@
     import { onMount } from 'svelte';
   
     export let titre: string;
-    export let resume: string;
     export let auteur: string;
     export let auteurTitre: string = '';
     export let date: string;
@@ -48,8 +47,7 @@
       </div>
   
       <h1>{titre}</h1>
-      <p class="article-hero-resume">{resume}</p>
-  
+
       <div class="article-hero-author">
         <div class="author-info">
           <span class="author-name">{auteur}</span>
@@ -168,14 +166,6 @@
       line-height: 1.2;
       margin-bottom: 1.5rem;
       font-weight: 800;
-    }
-  
-    .article-hero-resume {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.65);
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
-      max-width: 600px;
     }
   
     .article-hero-author {

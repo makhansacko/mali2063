@@ -2,11 +2,15 @@
   import { page } from '$app/stores';
 
   const navLinks = [
-    { href: '/',               label: 'La Vision' },
-   // { href: '/analyses',       label: 'Analytics' },
-  // { href: '/apropos',        label: 'À Propos' },
-   
+    { href: '/', label: 'Vision' },
+    { href: '/indicateurs', label: 'Indicateurs' },
+    // { href: '/apropos', label: 'À Propos' },
   ];
+
+  function isNavActive(href: string, pathname: string): boolean {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
 </script>
 
 <header>
@@ -24,7 +28,7 @@
         <a
           href={link.href}
           class="nav-link"
-          class:active={$page?.url?.pathname === link.href}
+          class:active={isNavActive(link.href, $page.url.pathname)}
         >
           {link.label}
         </a>

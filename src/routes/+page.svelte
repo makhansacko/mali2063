@@ -9,7 +9,7 @@
 
 <main>
   <Hero />
-  <Intro /> 
+  <Intro />
   <Axes /> 
   <Isometric />
   <Projects />

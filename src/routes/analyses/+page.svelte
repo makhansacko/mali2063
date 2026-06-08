@@ -22,11 +22,9 @@
     <!-- HERO -->
     <div class="analyses-hero">
       <div class="container">
-        <p class="label">Intelligence & Analyse</p>
-        <h1>Analytics</h1>
+        <h1>Analyses</h1>
         <p class="analyses-desc">
-          Notes d'analyse et décryptages produits par Sahel Analytics — 
-          appliquant un cadre de politique d'innovation aux objectifs de la Vision Mali Kura 2063.
+          Notes d'analyse et décryptages sur les axes stratégiques et les projets structurants de la Vision Mali 2063.
         </p>
       </div>
     </div>
@@ -62,7 +60,6 @@
               <span class="article-read">{featured.lecture} min de lecture</span>
             </div>
             <h2 class="featured-titre">{featured.titre}</h2>
-            <p class="featured-resume">{featured.resume}</p>
             <div class="featured-author">
               <span>{featured.auteur}</span>
             </div>
@@ -103,7 +100,6 @@
                     <span class="article-read">{article.lecture} min</span>
                   </div>
                   <h3 class="article-titre">{article.titre}</h3>
-                  <p class="article-resume">{article.resume}</p>
                   <div class="article-footer">
                     <span class="article-date">{formatDate(article.date)}</span>
                   </div>
@@ -233,14 +229,6 @@
       margin-bottom: 1rem;
     }
   
-    .featured-resume {
-      color: #444;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      flex: 1;
-      margin-bottom: 1.5rem;
-    }
-  
     .featured-author {
       font-size: 0.8rem;
       color: var(--color-brown);
@@ -355,14 +343,6 @@
       color: var(--color-night);
       line-height: 1.4;
       margin-bottom: 0.75rem;
-    }
-  
-    .article-resume {
-      font-size: 0.82rem;
-      color: #555;
-      line-height: 1.65;
-      flex: 1;
-      margin-bottom: 1rem;
     }
   
     .article-footer {
