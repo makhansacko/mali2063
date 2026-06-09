@@ -34,7 +34,7 @@
       if (messages.length === 0) {
         messages = [{
           role: 'assistant',
-          content: 'Bonjour ! Je suis SaheL\'IA. Pose-moi tes questions sur la Vision Mali Kura 2063, la SNEDD, les projets structurants, ou Sahel Analytics.'
+          content: 'Bonjour ! Je suis SaheL\'IA. Pose-moi tes questions sur la Vision Mali 2063, la SNEDD, les projets structurants, ou Sahel Analytics.'
         }];
       }
     }
