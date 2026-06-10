@@ -197,7 +197,7 @@
     {#if showSectionHeader}
       <div class="section-header">
         <p class="label">Trajectoire de la Vision</p>
-        <h3>Indicateurs</h3>
+        <h3>Indicateurs clés</h3>
         <p class="section-desc">
           Les engagements de la Vision Mali 2063 sont mesurables.
           Trajectoires officielles — baseline, cible 2033 et cible 2063.

@@ -9,10 +9,10 @@
 <div class="indicateurs-page">
   <div class="indicateurs-hero">
     <div class="container">
-      <h1>Indicateurs</h1>
+      <h1>Indicateurs clés</h1>
       <p class="indicateurs-desc">
         Les engagements de la Vision Mali 2063 sont mesurables.
-          Trajectoires officielles - baseline, cible 2033 et cible 2063.
+          Trajectoires officielles - baseline, cible 2033 et cible 2063 de quelques indicateurs clés.
       </p>
     </div>
   </div>
