@@ -53,13 +53,25 @@
     const assistantIndex = messages.length - 1;
 
     try {
+      const conversationMessages = messages
+        .slice(0, -1)
+        .filter((m) => m.content.trim());
+      const firstUserIndex = conversationMessages.findIndex((m) => m.role === 'user');
+      const apiMessages = firstUserIndex >= 0
+        ? conversationMessages.slice(firstUserIndex)
+        : conversationMessages;
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messages.slice(0, -1) })
+        body: JSON.stringify({ messages: apiMessages })
       });
 
-      const reader = response.body!.getReader();
+      if (!response.ok || !response.body) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let buffer = '';
       let fullContent = '';
@@ -90,6 +102,11 @@
       }
 
       loading = false;
+
+      if (!fullContent.trim()) {
+        throw new Error('Empty response from chat service');
+      }
+
       const words = fullContent.split(/(\s+)/);
       let displayed = '';
 

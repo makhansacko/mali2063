@@ -5,6 +5,14 @@ import { visionDocument } from '$lib/data/vision-text';
 export const POST: RequestHandler = async ({ request }) => {
   const { messages } = await request.json();
 
+  const apiMessages = messages
+    .filter((m: { role: string; content: string }) => m.content?.trim())
+    .slice(-6)
+    .map((m: { role: string; content: string }) => ({
+      role: m.role,
+      content: m.content
+    }));
+
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -13,7 +21,7 @@ export const POST: RequestHandler = async ({ request }) => {
       'anthropic-version': '2023-06-01'
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-5',
       max_tokens: 1000,
       stream: true,  // ← add this
       system: `Tu es Sahelia, l'assistant intelligent de la plateforme mali2063.org, développée par Sahel Analytics.
@@ -110,14 +118,19 @@ Si un utilisateur souhaite contacter Sahel Analytics ou l'équipe de mali2063.or
 Le document ci-dessous est le texte intégral officiel de la Vision Mali Kura 2063, publié en décembre 2024 par le Ministère de l'Économie et des Finances du Mali. Utilise-le comme source principale pour répondre avec précision à toutes les questions des utilisateurs sur la Vision, la SNEDD, les axes stratégiques, les projets structurants, les indicateurs et le diagnostic économique.
 
 ${visionDocument}`,
-      messages: messages.slice(-6).map((m: { role: string; content: string }) => ({
-        role: m.role,
-        content: m.content
-      }))
+      messages: apiMessages
     })
   });
 
-  // Pass the stream directly to the client
+  if (!response.ok) {
+    const errorBody = await response.text();
+    console.error('Anthropic API error:', response.status, errorBody);
+    return new Response(JSON.stringify({ error: 'Chat service unavailable' }), {
+      status: response.status,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   return new Response(response.body, {
     headers: {
       'Content-Type': 'text/event-stream',
