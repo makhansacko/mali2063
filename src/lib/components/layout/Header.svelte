@@ -17,29 +17,25 @@
 <header>
   <div class="container header-inner">
 
-    <!-- LOGO -->
     <a href="/" class="logo">
       <img src="/logo3.png" alt="mali2063" class="logo-img" />
-      <span class="logo-text"></span>
     </a>
 
-    <!-- NAV -->
-    <nav>
-      {#each navLinks as link}
-        <a
-          href={link.href}
-          class="nav-link"
-          class:active={isNavActive(link.href, $page.url.pathname)}
-        >
-          {link.label}
-        </a>
-      {/each}
-    </nav>
+    <div class="header-actions">
+      <nav aria-label="Main">
+        {#each navLinks as link}
+          <a
+            href={link.href}
+            class="nav-link"
+            class:active={isNavActive(link.href, $page.url.pathname)}
+          >
+            {link.label}
+          </a>
+        {/each}
+      </nav>
+      <LanguageToggle />
+    </div>
 
-  </div>
-
-  <div class="lang-toggle-slot">
-    <LanguageToggle />
   </div>
 </header>
 
@@ -53,60 +49,53 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
   }
 
-  .lang-toggle-slot {
-    position: absolute;
-    top: 0;
-    right: 2rem;
-    height: 4rem;
-    display: flex;
-    align-items: center;
-  }
-
   .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
-    padding-right: 4.5rem;
+    gap: 0.75rem;
+    min-height: 4rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
   }
 
-  /* --- LOGO --- */
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     text-decoration: none;
     flex-shrink: 0;
+    min-width: 0;
   }
 
   .logo-img {
-    height: 150px;
+    height: 2.75rem;
     width: auto;
+    display: block;
   }
 
-  .logo-text {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-night);
-    letter-spacing: 0.05em;
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    margin-left: auto;
   }
 
-  /* --- NAV --- */
   nav {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.1rem;
   }
 
   .nav-link {
     font-family: var(--font-mono);
-    font-size: 0.785rem;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     color: var(--color-brown);
     text-decoration: none;
-    padding: 0.4rem 0.75rem;
+    padding: 0.35rem 0.45rem;
+    white-space: nowrap;
     transition: color 0.2s;
   }
 
@@ -119,16 +108,38 @@
     font-weight: 700;
   }
 
-  @media (max-width: 768px) {
-    .header-inner {
-      padding: 0 1rem;
-      padding-right: 4.5rem;
+  @media (min-width: 769px) {
+    .logo-img {
+      height: 3.25rem;
+    }
+
+    .header-actions {
+      gap: 0.5rem;
+    }
+
+    nav {
+      gap: 0.25rem;
+    }
+
+    .nav-link {
+      font-size: 0.785rem;
+      padding: 0.4rem 0.75rem;
     }
   }
 
-  @media (max-width: 520px) {
-    .lang-toggle-slot {
-      right: 1rem;
+  @media (max-width: 400px) {
+    .header-inner {
+      gap: 0.5rem;
+    }
+
+    .header-actions {
+      gap: 0.2rem;
+    }
+
+    .nav-link {
+      font-size: 0.62rem;
+      padding: 0.3rem 0.3rem;
+      letter-spacing: 0.03em;
     }
   }
 </style>

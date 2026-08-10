@@ -24,16 +24,17 @@
 <style>
   .lang-toggle {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.62rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     background: none;
     border: 1px solid rgba(115, 101, 85, 0.2);
-    padding: 0.35rem 0.65rem;
+    padding: 0.3rem 0.45rem;
     cursor: pointer;
     color: var(--color-brown);
     transition: border-color 0.2s, color 0.2s;
     flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .lang-toggle:hover {
@@ -53,5 +54,13 @@
 
   .lang-switch {
     opacity: 0.65;
+  }
+
+  @media (min-width: 769px) {
+    .lang-toggle {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.65rem;
+    }
   }
 </style>
