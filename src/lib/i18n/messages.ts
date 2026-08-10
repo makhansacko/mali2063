@@ -9,7 +9,7 @@ const fr = {
 	'nav.indicators': 'Indicateurs',
 
 	'hero.subtitle':
-		'Une lecture indépendante de la Vision Mali 2063 — pour les citoyens, la diaspora, la société civile et le secteur privé.',
+		'Une lecture indépendante de la Vision Mali 2063 - pour les citoyens, la diaspora, la société civile et le secteur privé.',
 	'hero.scroll': 'Défiler vers le bas',
 
 	'intro.referenceLabel': 'Le cadre de référence',
@@ -80,7 +80,7 @@ const fr = {
 
 	'footer.aboutTitle': 'Mali 2063',
 	'footer.aboutDesc':
-		'Une lecture indépendante de la Vision Mali 2063 — pour les citoyens, la diaspora, la société civile et le secteur privé.',
+		'Une lecture indépendante de la Vision Mali 2063 - pour les citoyens, la diaspora, la société civile et le secteur privé.',
 	'footer.poweredBy': 'Powered by',
 	'footer.navTitle': 'Navigation',
 	'footer.home': 'Accueil',
