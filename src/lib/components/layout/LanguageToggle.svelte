@@ -5,7 +5,7 @@
 
   function toggleLocale() {
     const next: Locale = $locale === 'fr' ? 'en' : 'fr';
-    setLocale(next);
+    setLocale(next, { persist: true });
   }
 </script>
 

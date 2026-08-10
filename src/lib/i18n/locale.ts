@@ -10,21 +10,32 @@ export function parseLocaleParam(value: string | null): Locale | null {
 	return null;
 }
 
+function readSavedPreference(): Locale | null {
+	if (!browser) return null;
+	const stored = localStorage.getItem(STORAGE_KEY);
+	if (stored === 'fr' || stored === 'en') return stored;
+	return null;
+}
+
 function readInitialLocale(): Locale {
 	if (!browser) return DEFAULT_LOCALE;
 
 	const fromUrl = parseLocaleParam(new URLSearchParams(window.location.search).get('lang'));
 	if (fromUrl) return fromUrl;
 
-	const stored = localStorage.getItem(STORAGE_KEY);
-	if (stored === 'fr' || stored === 'en') return stored;
+	return readSavedPreference() ?? DEFAULT_LOCALE;
+}
 
-	return DEFAULT_LOCALE;
+export function resolveLocaleWithoutUrlParam(): Locale {
+	return readSavedPreference() ?? DEFAULT_LOCALE;
 }
 
 export const locale = writable<Locale>(readInitialLocale());
 
-export function setLocale(next: Locale) {
+let persistNextChange = false;
+
+export function setLocale(next: Locale, options?: { persist?: boolean }) {
+	persistNextChange = options?.persist ?? false;
 	locale.set(next);
 }
 
@@ -35,7 +46,10 @@ export function applyLocaleFromSearchParams(searchParams: URLSearchParams) {
 
 if (browser) {
 	locale.subscribe((value) => {
-		localStorage.setItem(STORAGE_KEY, value);
+		if (persistNextChange) {
+			localStorage.setItem(STORAGE_KEY, value);
+			persistNextChange = false;
+		}
 		document.documentElement.lang = value;
 	});
 }
