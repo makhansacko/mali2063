@@ -9,7 +9,6 @@ function readStoredLocale(): Locale {
 	if (!browser) return DEFAULT_LOCALE;
 	const stored = localStorage.getItem(STORAGE_KEY);
 	if (stored === 'fr' || stored === 'en') return stored;
-	if (navigator.language.toLowerCase().startsWith('en')) return 'en';
 	return DEFAULT_LOCALE;
 }
 
