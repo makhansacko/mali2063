@@ -167,7 +167,7 @@ const en: Record<keyof typeof fr, string> = {
 	'indicators.label': 'Vision trajectory',
 	'indicators.title': 'Key indicators',
 	'indicators.desc':
-		'The commitments of the Mali 2063 Vision are measurable. Official trajectories — baseline, 2033 target, and 2063 target.',
+		'The commitments of the Mali 2063 Vision are measurable. Official trajectories - baseline, 2033 target, and 2063 target.',
 	'indicators.growthPts': ' pts/yr',
 	'indicators.growthPerYear': '/yr',
 	'indicators.reduceBy': 'Reduce by',
@@ -182,7 +182,7 @@ const en: Record<keyof typeof fr, string> = {
 
 	'indicateursPage.title': 'Key indicators',
 	'indicateursPage.desc':
-		'The commitments of the Mali 2063 Vision are measurable. Official trajectories — baseline, 2033 target, and 2063 target for key indicators.',
+		'The commitments of the Mali 2063 Vision are measurable. Official trajectories - baseline, 2033 target, and 2063 target for key indicators.',
 	'indicateursPage.metaTitle': 'Indicators — mali2063.org',
 
 	'footer.aboutTitle': 'Mali 2063',
