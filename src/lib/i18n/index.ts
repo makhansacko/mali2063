@@ -3,7 +3,7 @@ import { locale } from './locale.ts';
 import { messages, type MessageKey } from './messages.ts';
 import type { Locale } from './types.ts';
 
-export { locale, setLocale } from './locale.ts';
+export { locale, setLocale, parseLocaleParam, applyLocaleFromSearchParams } from './locale.ts';
 export type { Locale } from './types.ts';
 
 export const t = derived(locale, ($locale) => {

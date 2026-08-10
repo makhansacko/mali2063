@@ -11,10 +11,17 @@
   import Header from '$lib/components/layout/Header.svelte';
   import Footer from '$lib/components/layout/Footer.svelte';
   import ChatWidget from '$lib/components/chat/ChatWidget.svelte';
-  import { locale } from '$lib/i18n';
+  import { locale, setLocale } from '$lib/i18n';
+
+  /** @type {import('./$types').LayoutData} */
+  export let data;
 
   injectAnalytics({ mode: dev ? 'development' : 'production' });
   injectSpeedInsights();
+
+  $: if (data.urlLocale) {
+    setLocale(data.urlLocale);
+  }
 
   onMount(() => {
     document.documentElement.lang = $locale;
