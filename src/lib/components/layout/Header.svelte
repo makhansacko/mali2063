@@ -1,10 +1,11 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { t } from '$lib/i18n';
+  import LanguageToggle from './LanguageToggle.svelte';
 
-  const navLinks = [
-    { href: '/', label: 'Vision' },
-    { href: '/indicateurs', label: 'Indicateurs' },
-    // { href: '/apropos', label: 'À Propos' },
+  $: navLinks = [
+    { href: '/', label: $t('nav.vision') },
+    { href: '/indicateurs', label: $t('nav.indicators') }
   ];
 
   function isNavActive(href: string, pathname: string): boolean {
@@ -36,6 +37,10 @@
     </nav>
 
   </div>
+
+  <div class="lang-toggle-slot">
+    <LanguageToggle />
+  </div>
 </header>
 
 <style>
@@ -48,11 +53,21 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
   }
 
+  .lang-toggle-slot {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+  }
+
   .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 4rem;
+    padding-right: 4.5rem;
   }
 
   /* --- LOGO --- */
@@ -105,8 +120,15 @@
   }
 
   @media (max-width: 768px) {
-  .header-inner {
-    padding: 0 1rem;
+    .header-inner {
+      padding: 0 1rem;
+      padding-right: 4.5rem;
+    }
   }
-}
+
+  @media (max-width: 520px) {
+    .lang-toggle-slot {
+      right: 1rem;
+    }
+  }
 </style>

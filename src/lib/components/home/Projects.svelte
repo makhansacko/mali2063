@@ -1,10 +1,15 @@
 <script lang="ts">
   import { onMount, onDestroy, tick } from 'svelte';
   import { browser } from '$app/environment';
-  import { axes, projects } from '$lib/data/vision';
+  import { locale, t } from '$lib/i18n';
+  import { getAxes, getProjects } from '$lib/data/vision-i18n';
+  import { projects as baseProjects } from '$lib/data/vision';
+
+  $: axes = getAxes($locale);
+  $: projects = getProjects($locale);
 
   let currentIndicator: Record<string, number> = Object.fromEntries(
-    projects.map(p => [p.id, 0])
+    baseProjects.map((p) => [p.id, 0])
   );
 
   let intervals: ReturnType<typeof setInterval>[] = [];
@@ -95,11 +100,10 @@
   <div class="container">
 
     <div class="section-header">
-      <p class="label">Mise en œuvre de la vision</p>
-      <h3>11 Projets Structurants</h3>
+      <p class="label">{$t('projects.label')}</p>
+      <h3>{$t('projects.title')}</h3>
       <p class="section-desc">
-        Onze projets intégrateurs et fédérateurs constituent le moteur de la 
-        Vision Mali 2063.
+        {$t('projects.desc')}
         <br><br>
       </p>
     </div>
@@ -188,16 +192,15 @@
   <div class="sahelia-icon">
     <canvas bind:this={saheliaLottieCanvas} class="sahelia-lottie" aria-label="SaheL'IA"></canvas>
   </div>
-  <h3 class="sahelia-title">Des questions sur les projets structurants ?</h3>
+  <h3 class="sahelia-title">{$t('projects.saheliaTitle')}</h3>
   <p class="sahelia-desc">
-    SaheL'IA peut répondre à vos questions sur les 11 projets, 
-    les 5 axes stratégiques et l'ensemble de la Vision Mali Kura 2063.
+    {$t('projects.saheliaDesc')}
   </p>
   <button class="sahelia-btn" on:click={() => {
     const toggle = document.querySelector('.chat-toggle') as HTMLElement;
     if (toggle) toggle.click();
   }}>
-    Poser une question →
+    {$t('projects.saheliaBtn')}
   </button>
 </div>
 </div>

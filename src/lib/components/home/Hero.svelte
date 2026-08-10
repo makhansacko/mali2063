@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import gsap from 'gsap';
   import ScrollTrigger from 'gsap/ScrollTrigger';
+  import { t } from '$lib/i18n';
 
   gsap.registerPlugin(ScrollTrigger);
   const heroTitle = 'MALI KURA NƐTAASIRA KA BƐN SAN 2063 MA';
@@ -72,11 +73,11 @@
     {/each}
   </h1>
 
-  <p class="hero-subtitle">Une lecture indépendante de la Vision Mali 2063 - pour les citoyens, la diaspora, la société civile et le secteur privé.</p>
+  <p class="hero-subtitle">{$t('hero.subtitle')}</p>
 
 
   <!-- SCROLL INDICATOR -->
-  <a href="#intro" class="scroll-indicator" aria-label="Scroll down" on:click={scrollToIntro}>
+  <a href="#intro" class="scroll-indicator" aria-label={$t('hero.scroll')} on:click={scrollToIntro}>
     <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M12 5v14M19 12l-7 7-7-7"/>
     </svg>

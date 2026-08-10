@@ -1,7 +1,10 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { afterNavigate } from '$app/navigation';
-  import { axes } from '$lib/data/vision';
+  import { locale, t } from '$lib/i18n';
+  import { getAxes } from '$lib/data/vision-i18n';
+
+  $: axes = getAxes($locale);
 
   let activeAxe: string | null = null;
   let showingSpecificObjectives: Record<string, boolean> = {};
@@ -65,8 +68,8 @@
 <section class="axes section" id="axes">
   <div class="container">
     <div class="section-header">
-      <p class="label">SNEDD 2024–2033</p>
-      <h3>5 Axes Stratégiques</h3>
+      <p class="label">{$t('axes.label')}</p>
+      <h3>{$t('axes.title')}</h3>
     </div>
   </div>
 
@@ -102,13 +105,13 @@
             <div class="axe-expanded-stats">
               <div class="axe-stat">
                 <span class="axe-stat-n">{axe.globalObjectives.length}</span>
-                <span class="axe-stat-l">Objectifs<br/>globaux</span>
+                <span class="axe-stat-l">{$t('axes.globalObjectives')}</span>
               </div>
               <div class="axe-stat">
                 <span class="axe-stat-n">
                   {axe.globalObjectives.reduce((acc, o) => acc + o.specificObjectives.length, 0)}
                 </span>
-                <span class="axe-stat-l">Objectifs<br/>spécifiques</span>
+                <span class="axe-stat-l">{$t('axes.specificObjectives')}</span>
               </div>
             </div>
 
@@ -147,7 +150,7 @@
                 }
               }}
             >
-              {isSpecificView ? 'Voir les objectifs globaux' : 'Explorer les objectifs spécifiques'} →
+              {isSpecificView ? $t('axes.viewGlobal') : $t('axes.viewSpecific')} →
             </span>
           </div>
         {/if}
@@ -328,6 +331,7 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     line-height: 1.4;
+    white-space: pre-line;
   }
 
   /* --- OBJECTIVES --- */

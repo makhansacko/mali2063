@@ -1,28 +1,30 @@
 <script lang="ts">
-  /* Alignées sur le dégradé de la flèche (intro-phases-mali-gradient) */
-  const phases = [
+  import { t } from '$lib/i18n';
+  import { interpolate } from '$lib/i18n/messages';
+
+  $: phases = [
     {
       period: '2024–2033',
-      name: 'Refondation (SNEDD)',
-      desc: 'Stabilisation, réformes institutionnelles et premières transformations structurelles.',
+      name: $t('intro.phase1.name'),
+      desc: $t('intro.phase1.desc'),
       color: '#4a9e72'
     },
     {
       period: '2034–2043',
-      name: 'Spécialisation',
-      desc: 'Montée en compétitivité et spécialisation économique par secteur.',
+      name: $t('intro.phase2.name'),
+      desc: $t('intro.phase2.desc'),
       color: '#91af70'
     },
     {
       period: '2044–2053',
-      name: 'Développement Humain',
-      desc: 'Haut niveau de développement humain, bien-être social et rayonnement.',
+      name: $t('intro.phase3.name'),
+      desc: $t('intro.phase3.desc'),
       color: '#d8c06f'
     },
     {
       period: '2054–2063',
-      name: 'Consolidation',
-      desc: 'Consolidation des acquis et positionnement du Mali comme modèle africain.',
+      name: $t('intro.phase4.name'),
+      desc: $t('intro.phase4.desc'),
       color: '#c45450'
     }
   ];
@@ -39,8 +41,8 @@
 
     <!-- LEFT — Vision Mali 2063 -->
     <div class="intro-col">
-      <p class="label">Le cadre de référence</p>
-      <h2>Vision Mali 2063</h2>
+      <p class="label">{$t('intro.referenceLabel')}</p>
+      <h2>{$t('intro.visionTitle')}</h2>
       <div class="divider"></div>
 
       <div class="intro-col-inner">
@@ -54,7 +56,7 @@
         >
           <img
             src="/visionCover.webp"
-            alt="Vision Mali Kura 2063 — couverture officielle (PDF sur finances.ml)"
+            alt={$t('intro.visionCoverAlt')}
             class="intro-cover-img"
             draggable="false"
           />
@@ -63,17 +65,14 @@
         <!-- Text -->
         <div class="intro-col-text">
           <p>
-            En décembre 2024, le gouvernement du Mali a publié la Vision Mali Kura 
-            2063 (MALI KURA NƐTAASIRA KA BƐN SAN 2063 MA) - un cadre de développement 
-            national sur quarante ans, organisé autour de 4 phases décennales et 
-            11 projets structurants couvrant l'ensemble du territoire malien.
+            {$t('intro.visionParagraph')}
           </p>
         </div>
       </div>
 
       <!-- PHASES CYCLE -->
       <div class="phases-cycle">
-        <p class="phases-label">Les 4 phases décennales</p>
+        <p class="phases-label">{$t('intro.phasesLabel')}</p>
 
         <div class="phases-arrow">
           <div class="phases-arrow-stack">
@@ -153,7 +152,7 @@
               class:active={i === activePhase}
               style={i === activePhase ? `background: ${phases[i].color}` : ''}
               on:click={() => setPhase(i)}
-              aria-label="Phase {i + 1}"
+              aria-label={interpolate($t('intro.phaseAria'), { n: i + 1 })}
             ></button>
           {/each}
         </div>
@@ -165,38 +164,33 @@
 
     <!-- RIGHT — SNEDD 2024-2033 -->
     <div class="intro-col">
-      <p class="label">La stratégie opérationnelle</p>
-      <h2>SNEDD 2024–2033</h2>
+      <p class="label">{$t('intro.sneddLabel')}</p>
+      <h2>{$t('intro.sneddTitle')}</h2>
       <div class="divider"></div>
       <p>
-        La Stratégie Nationale de Développement Durable 2024-2033 (<b>SNEDD</b>) est le cadre 
-        opérationnel de la première décennie de la Vision Mali 2063. Elle traduit 
-        les ambitions de long terme en objectifs mesurables et en actions concrètes 
-        pour les dix prochaines années.
+        {$t('intro.sneddP1')}
       </p>
       <p style="margin-top: 1rem">
-        La <b>SNEDD</b> est organisée autour de 5 axes stratégiques, 13 objectifs globaux 
-        et 38 objectifs spécifiques - chacun assorti d'indicateurs de suivi avec 
-        des valeurs de référence et des cibles à l'horizon 2033.
+        {$t('intro.sneddP2')}
       </p>
 
       <div class="snedd-numbers">
         <div class="snedd-number">
           <span class="snedd-n">5</span>
-          <span class="snedd-l">Axes stratégiques</span>
+          <span class="snedd-l">{$t('intro.sneddAxes')}</span>
         </div>
         <div class="snedd-number">
           <span class="snedd-n">13</span>
-          <span class="snedd-l">Objectifs globaux</span>
+          <span class="snedd-l">{$t('intro.sneddGlobal')}</span>
         </div>
         <div class="snedd-number">
           <span class="snedd-n">38</span>
-          <span class="snedd-l">Objectifs spécifiques</span>
+          <span class="snedd-l">{$t('intro.sneddSpecific')}</span>
         </div>
       </div>
 
       <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--color-blue-deep); font-weight: 600">
-        ↓ Les 5 axes stratégiques de la SNEDD sont présentés ci-dessous.
+        {$t('intro.sneddHint')}
       </p>
     </div>
 

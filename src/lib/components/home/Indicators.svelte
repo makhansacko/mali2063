@@ -1,32 +1,39 @@
 <script lang="ts">
-  import { indicators } from '$lib/data/vision';
   import { onMount, onDestroy, tick } from 'svelte';
   import { browser } from '$app/environment';
+  import { get } from 'svelte/store';
+  import { locale, t, formatNumber } from '$lib/i18n';
+  import { interpolate } from '$lib/i18n/messages';
+  import { getIndicators } from '$lib/data/vision-i18n';
+  import type { Indicator } from '$lib/data/vision';
 
   export let showSectionHeader = true;
+
+  $: localizedIndicators = getIndicators($locale);
 
   type ChartInstance = { destroy: () => void };
   let charts: Record<string, ChartInstance> = {};
   let canvases: Record<string, HTMLCanvasElement> = {};
   let saheliaLottieCanvas: HTMLCanvasElement | undefined;
   let saheliaDotLottie: { destroy: () => void } | undefined;
+  let chartsReady = false;
 
   function openChatWidget() {
     const toggle = document.querySelector('.chat-toggle') as HTMLElement | null;
     toggle?.click();
   }
 
-  function annualGrowth(ind: typeof indicators[0]): { value: number; label: string } | null {
+  function annualGrowth(ind: Indicator): { value: number; label: string } | null {
     const t2033 = ind.targets[2033];
     if (!t2033) return null;
     const years = 2033 - ind.baselineYear;
     if (years <= 0) return null;
     const value = (t2033 - ind.baseline) / years;
-    const unit = ind.unit === '%' ? ' pts/an' : ` ${ind.unit}/an`;
+    const unit = ind.unit === '%' ? $t('indicators.growthPts') : ` ${ind.unit}${$t('indicators.growthPerYear')}`;
     return { value, label: unit };
   }
 
-  function buildChartData(ind: typeof indicators[0]) {
+  function buildChartData(ind: Indicator) {
     const points: { x: number; y: number }[] = [];
     points.push({ x: ind.baselineYear, y: ind.baseline });
     if (ind.targets[2033]) points.push({ x: 2033, y: ind.targets[2033] });
@@ -40,17 +47,22 @@
 
   function formatValue(val: number, unit: string): string {
     const formatted = Math.abs(val) >= 1000
-      ? val.toLocaleString('fr-FR', { maximumFractionDigits: 0 })
+      ? formatNumber(val)
       : val % 1 === 0 ? String(val) : val.toFixed(1);
     return unit === '%' ? `${formatted}%` : `${formatted} ${unit}`;
+  }
+
+  function destroyCharts() {
+    Object.values(charts).forEach((c) => c.destroy());
+    charts = {};
   }
 
   async function initCharts() {
     const { Chart, registerables } = await import('chart.js');
     Chart.register(...registerables);
 
-    for (const ind of indicators) {
-      const canvas = canvases[ind.label];
+    for (const ind of localizedIndicators) {
+      const canvas = canvases[ind.id];
       if (!canvas) continue;
 
       const data = buildChartData(ind);
@@ -67,7 +79,7 @@
       gradient.addColorStop(0, isDecreasing ? 'rgba(196, 92, 92, 0.07)' : 'rgba(60, 111, 171, 0.07)');
       gradient.addColorStop(1, 'rgba(0,0,0,0)');
 
-      charts[ind.label] = new Chart(canvas, {
+      charts[ind.id] = new Chart(canvas, {
         type: 'line',
         data: {
           labels,
@@ -107,7 +119,7 @@
               callbacks: {
                 title: (items) => {
                   const year = items[0].parsed.x ?? items[0].label;
-                  return `Année ${formatYear(Number(year))}`;
+                  return `${$t('indicators.year')} ${formatYear(Number(year))}`;
                 },
                 label: (item) => {
                   const y = item.parsed.y;
@@ -148,10 +160,20 @@
         }
       });
     }
+
+    chartsReady = true;
+  }
+
+  async function refreshCharts() {
+    destroyCharts();
+    chartsReady = false;
+    await tick();
+    await initCharts();
   }
 
   onMount(() => {
-    initCharts();
+    let previousLocale = get(locale);
+    void refreshCharts();
 
     let cancelled = false;
 
@@ -178,15 +200,22 @@
       });
     })();
 
+    const unsubscribe = locale.subscribe((loc) => {
+      if (loc === previousLocale) return;
+      previousLocale = loc;
+      void refreshCharts();
+    });
+
     return () => {
       cancelled = true;
+      unsubscribe();
       saheliaDotLottie?.destroy();
       saheliaDotLottie = undefined;
     };
   });
 
   onDestroy(() => {
-    Object.values(charts).forEach(c => c.destroy());
+    destroyCharts();
     saheliaDotLottie?.destroy();
   });
 </script>
@@ -196,17 +225,16 @@
 
     {#if showSectionHeader}
       <div class="section-header">
-        <p class="label">Trajectoire de la Vision</p>
-        <h3>Indicateurs clés</h3>
+        <p class="label">{$t('indicators.label')}</p>
+        <h3>{$t('indicators.title')}</h3>
         <p class="section-desc">
-          Les engagements de la Vision Mali 2063 sont mesurables.
-          Trajectoires officielles — baseline, cible 2033 et cible 2063.
+          {$t('indicators.desc')}
         </p>
       </div>
     {/if}
 
     <div class="indicators-grid">
-      {#each indicators as indicator}
+      {#each localizedIndicators as indicator (indicator.id)}
         {@const growth = annualGrowth(indicator)}
         {@const isDecreasing = indicator.targets[2063] < indicator.baseline}
         {@const has2033 = !!indicator.targets[2033]}
@@ -226,16 +254,16 @@
           <div class="indicator-card-body">
             <div class="ind-chart-wrap">
               <canvas
-                bind:this={canvases[indicator.label]}
-                aria-label={`Trajectoire ${indicator.label}`}
+                bind:this={canvases[indicator.id]}
+                aria-label={interpolate($t('indicators.chartAria'), { label: indicator.label })}
               ></canvas>
             </div>
 
             {#if growth}
               <p class="ind-du-stat">
-                {isDecreasing ? 'Réduire de' : 'Augmenter de'}
-                <strong>{Math.abs(growth.value) < 1 ? Math.abs(growth.value).toFixed(2) : Math.abs(growth.value).toFixed(1)}{growth.label.replace('/an', '')}</strong>
-                par an jusqu'en 2033
+                {isDecreasing ? $t('indicators.reduceBy') : $t('indicators.increaseBy')}
+                <strong>{Math.abs(growth.value) < 1 ? Math.abs(growth.value).toFixed(2) : Math.abs(growth.value).toFixed(1)}{growth.label.replace($t('indicators.growthPerYear'), '')}</strong>
+                {$t('indicators.perYearUntil2033')}
               </p>
             {/if}
           </div>
@@ -280,13 +308,12 @@
         <div class="sahelia-icon">
           <canvas bind:this={saheliaLottieCanvas} class="sahelia-lottie" aria-label="SaheL'IA"></canvas>
         </div>
-        <h3 class="sahelia-title">Des questions sur les indicateurs ?</h3>
+        <h3 class="sahelia-title">{$t('indicators.saheliaTitle')}</h3>
         <p class="sahelia-desc">
-          SaheL'IA peut répondre à vos questions sur les trajectoires, les cibles 2033 et 2063,
-          et l'ensemble de la Vision Mali 2063.
+          {$t('indicators.saheliaDesc')}
         </p>
         <button type="button" class="sahelia-btn" on:click={openChatWidget}>
-          Poser une question →
+          {$t('indicators.saheliaBtn')}
         </button>
       </div>
     </div>

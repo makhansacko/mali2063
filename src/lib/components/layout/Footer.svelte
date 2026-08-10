@@ -1,32 +1,36 @@
 <script lang="ts">
-  import { axes } from '$lib/data/vision';
+  import { locale, t } from '$lib/i18n';
+  import { interpolate } from '$lib/i18n/messages';
+  import { getAxes } from '$lib/data/vision-i18n';
 
   const currentYear = new Date().getFullYear();
+
+  $: localizedAxes = getAxes($locale);
 
   let email = '';
   let subscribed = false;
 
   async function subscribe() {
-  if (!email.trim()) return;
+    if (!email.trim()) return;
 
-  try {
-    const response = await fetch('/api/newsletter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    });
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
 
-    if (response.ok) {
-      subscribed = true;
-      email = '';
-    } else {
-      const data = await response.json();
-      console.error(data.error);
+      if (response.ok) {
+        subscribed = true;
+        email = '';
+      } else {
+        const data = await response.json();
+        console.error(data.error);
+      }
+    } catch (error) {
+      console.error('Newsletter error', error);
     }
-  } catch (error) {
-    console.error('Erreur réseau', error);
   }
-}
 </script>
 
 <footer>
@@ -34,13 +38,12 @@
 
     <!-- COLUMN 1 — About -->
     <div class="footer-col">
-      <p class="footer-col-title">Mali 2063</p>
+      <p class="footer-col-title">{$t('footer.aboutTitle')}</p>
       <p class="footer-desc">
-        Une lecture indépendante de la Vision Mali 2063 -
-        pour les citoyens, la diaspora, la société civile et le secteur privé.
+        {$t('footer.aboutDesc')}
       </p>
       <div class="footer-powered">
-        <p class="footer-powered-label">Powered by</p>
+        <p class="footer-powered-label">{$t('footer.poweredBy')}</p>
         <a href="https://sahelanalytics.com" target="_blank" class="footer-logo-link">
           <img src="/logo_sahel.png" alt="Sahel Analytics" class="footer-logo-img" />
         </a>
@@ -49,20 +52,18 @@
 
     <!-- COLUMN 2 — Navigation -->
     <div class="footer-col">
-      <p class="footer-col-title">Navigation</p>
+      <p class="footer-col-title">{$t('footer.navTitle')}</p>
       <ul class="footer-links">
-        <li><a href="/">Accueil</a></li>
-        <li><a href="/indicateurs">Indicateurs</a></li>
-        <!-- <li><a href="/analyses">Analyses</a></li> -->
-        <!-- <li><a href="/apropos">À propos</a></li> -->
+        <li><a href="/">{$t('footer.home')}</a></li>
+        <li><a href="/indicateurs">{$t('nav.indicators')}</a></li>
       </ul>
     </div>
 
     <!-- COLUMN 3 — Axes -->
     <div class="footer-col">
-      <p class="footer-col-title">Les 5 Axes (SNEDD 2024–2033)</p>
+      <p class="footer-col-title">{$t('footer.axesTitle')}</p>
       <ul class="footer-links">
-        {#each axes as axe}
+        {#each localizedAxes as axe}
           <li>
             <a href="/#{axe.id}">
               <span class="axe-dot" style="background: {axe.color}"></span>
@@ -75,20 +76,20 @@
 
     <!-- COLUMN 4 — Newsletter + Contact -->
     <div class="footer-col">
-      <p class="footer-col-title">Restez informés</p>
+      <p class="footer-col-title">{$t('footer.newsletterTitle')}</p>
       {#if subscribed}
         <p class="subscribe-confirm">
-          ✓ Merci - vous serez notifié des prochaines publications.
+          {$t('footer.newsletterConfirm')}
         </p>
       {:else}
         <p class="footer-newsletter-desc">
-          Recevez les nouvelles analyses et mises à jour de la plateforme.
+          {$t('footer.newsletterDesc')}
         </p>
         <div class="footer-subscribe">
           <input
             type="email"
             bind:value={email}
-            placeholder="votre@email.com"
+            placeholder={$t('footer.newsletterPlaceholder')}
             class="footer-email-input"
           />
           <button class="footer-subscribe-btn" on:click={subscribe}>
@@ -97,7 +98,7 @@
         </div>
       {/if}
 
-      <p class="footer-col-title" style="margin-top: 1.5rem;">Contact</p>
+      <p class="footer-col-title" style="margin-top: 1.5rem;">{$t('footer.contactTitle')}</p>
       <ul class="footer-links">
         <li>
           <a href="mailto:info@sahelanalytics.com">info@sahelanalytics.com</a>
@@ -111,10 +112,10 @@
   <div class="footer-bottom">
     <div class="container footer-bottom-inner">
       <p class="footer-legal">
-        Plateforme indépendante. Non affiliée au Gouvernement du Mali.
+        {$t('footer.legal')}
       </p>
       <p class="footer-copy">
-        © {currentYear} Sahel Analytics · Licence GPL v3 · Open Source
+        {interpolate($t('footer.copy'), { year: currentYear })}
       </p>
     </div>
   </div>

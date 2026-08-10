@@ -1,18 +1,18 @@
 <script lang="ts">
   import Indicators from '$lib/components/home/Indicators.svelte';
+  import { t } from '$lib/i18n';
 </script>
 
 <svelte:head>
-  <title>Indicateurs — mali2063.org</title>
+  <title>{$t('indicateursPage.metaTitle')}</title>
 </svelte:head>
 
 <div class="indicateurs-page">
   <div class="indicateurs-hero">
     <div class="container">
-      <h1>Indicateurs clés</h1>
+      <h1>{$t('indicateursPage.title')}</h1>
       <p class="indicateurs-desc">
-        Les engagements de la Vision Mali 2063 sont mesurables.
-          Trajectoires officielles - baseline, cible 2033 et cible 2063 de quelques indicateurs clés.
+        {$t('indicateursPage.desc')}
       </p>
     </div>
   </div>

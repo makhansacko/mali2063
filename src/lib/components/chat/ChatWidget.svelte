@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { marked } from 'marked';
+  import { locale, t } from '$lib/i18n';
 
   let mounted = false;
   let showButton = false;
@@ -12,15 +13,28 @@
   let loading = false;
   let messagesContainer: HTMLElement;
   let chatInput: HTMLTextAreaElement;
+  let chatLocale = 'fr';
 
   $: if (isOpen && !isClosing && chatInput) {
     setTimeout(() => chatInput.focus(), 100);
   }
 
+  $: if ($locale !== chatLocale) {
+    chatLocale = $locale;
+    if (messages.length === 1 && messages[0].role === 'assistant') {
+      messages = [{ role: 'assistant', content: welcomeMessage() }];
+    }
+  }
+
   onMount(() => {
     mounted = true;
+    chatLocale = $locale;
     setTimeout(() => { showButton = true; }, 2200);
   });
+
+  function welcomeMessage() {
+    return $t('chat.welcome');
+  }
 
   function toggleChat() {
     if (isOpen) {
@@ -34,7 +48,7 @@
       if (messages.length === 0) {
         messages = [{
           role: 'assistant',
-          content: 'Bonjour ! Je suis SaheL\'IA. Pose-moi tes questions sur la Vision Mali 2063, la SNEDD, les projets structurants, ou Sahel Analytics.'
+          content: welcomeMessage()
         }];
       }
     }
@@ -64,7 +78,7 @@
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: apiMessages })
+        body: JSON.stringify({ messages: apiMessages, locale: $locale })
       });
 
       if (!response.ok || !response.body) {
@@ -128,7 +142,7 @@
     } catch (error) {
       messages[assistantIndex] = {
         ...messages[assistantIndex],
-        content: 'Une erreur est survenue. Veuillez réessayer.'
+        content: $t('chat.error')
       };
       messages = [...messages];
       loading = false;
@@ -167,7 +181,7 @@
       class="chat-toggle"
       class:button-enter={showButton}
       on:click={toggleChat}
-      aria-label="Ouvrir l'assistant"
+      aria-label={$t('chat.openAria')}
     >
       {#if isOpen || isClosing}
         <span class="chat-toggle-icon">✕</span>
@@ -175,7 +189,7 @@
         <span class="chat-toggle-icon">
           <img src="/logo_sahelIA2.png" alt="SahelIA assistant" class="chat-avatar-icon"/>
         </span>
-        <span class="chat-toggle-label">Demande à SaheL'IA</span>
+        <span class="chat-toggle-label">{$t('chat.toggleLabel')}</span>
       {/if}
     </button>
   {/if}
@@ -191,8 +205,8 @@
             <img src="/logo_sahelIA2.png" alt="SahelIA assistant" class="chat-avatar-icon"/>
           </div>
           <div>
-            <p class="chat-name">SaheL'IA</p>
-            <p class="chat-tagline">Ton assistant pour comprendre la Vision Mali 2063</p>
+            <p class="chat-name">{$t('chat.name')}</p>
+            <p class="chat-tagline">{$t('chat.tagline')}</p>
           </div>
         </div>
         <button class="chat-close" on:click={toggleChat}>✕</button>
@@ -221,7 +235,7 @@
           bind:value={input}
           bind:this={chatInput}
           on:keydown={handleKeydown}
-          placeholder="Pose ta question..."
+          placeholder={$t('chat.placeholder')}
           rows="1"
           class="chat-input"
         ></textarea>
@@ -234,7 +248,7 @@
         </button>
       </div>
 
-      <p class="chat-footer">Powered by Sahel Analytics</p>
+      <p class="chat-footer">{$t('chat.footer')}</p>
 
     </div>
   {/if}
