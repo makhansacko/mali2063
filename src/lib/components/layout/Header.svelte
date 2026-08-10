@@ -47,6 +47,7 @@
     background: white;
     border-bottom: 1px solid rgba(115, 101, 85, 0.1);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    overflow: visible;
   }
 
   .header-inner {
@@ -109,8 +110,12 @@
   }
 
   @media (min-width: 769px) {
+    .header-inner {
+      min-height: 5rem;
+    }
+
     .logo-img {
-      height: 3.25rem;
+      height: 5rem;
     }
 
     .header-actions {
@@ -124,6 +129,18 @@
     .nav-link {
       font-size: 0.785rem;
       padding: 0.4rem 0.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-inner {
+      min-height: 6.5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .logo-img {
+      height: 150px;
     }
   }
 
