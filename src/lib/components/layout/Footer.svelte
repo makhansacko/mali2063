@@ -55,7 +55,6 @@
       <p class="footer-col-title">{$t('footer.navTitle')}</p>
       <ul class="footer-links">
         <li><a href="/">{$t('footer.home')}</a></li>
-        <li><a href="/indicateurs">{$t('nav.indicators')}</a></li>
       </ul>
     </div>
 
