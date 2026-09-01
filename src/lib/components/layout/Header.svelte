@@ -4,8 +4,7 @@
   import LanguageToggle from './LanguageToggle.svelte';
 
   $: navLinks = [
-    { href: '/', label: $t('nav.vision') },
-    { href: '/indicateurs', label: $t('nav.indicators') }
+    { href: '/', label: $t('nav.vision') }
   ];
 
   function isNavActive(href: string, pathname: string): boolean {
