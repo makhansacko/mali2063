@@ -47,20 +47,14 @@
 
       <div class="intro-col-inner">
         <!-- Cover image -->
-        <a
-          class="intro-cover"
-          href="https://finances.ml/sites/default/files/2025-05/VISION-MALI-2063.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          referrerpolicy="no-referrer"
-        >
+        <div class="intro-cover">
           <img
             src="/visionCover.webp"
             alt={$t('intro.visionCoverAlt')}
             class="intro-cover-img"
             draggable="false"
           />
-        </a>
+        </div>
 
         <!-- Text -->
         <div class="intro-col-text">
@@ -249,25 +243,11 @@
     flex-shrink: 0;
     display: block;
     line-height: 0;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .intro-cover:focus-visible {
-    outline: 2px solid var(--color-blue-deep);
-    outline-offset: 2px;
   }
 
   .intro-cover-img {
     width: 100%;
     display: block;
-    transition: transform 0.4s ease;
-  }
-
-  .intro-cover:hover .intro-cover-img {
-    transform: scale(1.02);
   }
 
   /* --- VERTICAL DIVIDER --- */
