@@ -1,8 +1,16 @@
-import { BREVO_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
   try {
+    const apiKey = env.BREVO_API_KEY;
+    if (!apiKey) {
+      return new Response(JSON.stringify({ error: 'Service indisponible' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     const { email } = await request.json();
 
     if (!email || !email.includes('@')) {
@@ -17,7 +25,7 @@ export const POST: RequestHandler = async ({ request }) => {
       headers: {
         'accept': 'application/json',
         'content-type': 'application/json',
-        'api-key': BREVO_API_KEY
+        'api-key': apiKey
       },
       body: JSON.stringify({
         email,

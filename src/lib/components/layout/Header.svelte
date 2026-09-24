@@ -5,7 +5,8 @@
 
   $: navLinks = [
     { href: '/', label: $t('nav.vision') },
-    { href: '/indicateurs', label: $t('nav.indicators') }
+    { href: '/indicateurs', label: $t('nav.indicators') },
+    { href: '/suivi', label: $t('nav.tracking') }
   ];
 
   function isNavActive(href: string, pathname: string): boolean {

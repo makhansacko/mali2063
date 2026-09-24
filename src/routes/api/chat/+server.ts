@@ -1,9 +1,17 @@
 import type { RequestHandler } from './$types';
-import { ANTHROPIC_API_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { getChatSystemPrompt } from '$lib/i18n/chat-system';
 import type { Locale } from '$lib/i18n/types';
 
 export const POST: RequestHandler = async ({ request }) => {
+  const apiKey = env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return new Response(JSON.stringify({ error: 'Chat service unavailable' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   const { messages, locale = 'fr' } = await request.json();
   const chatLocale: Locale = locale === 'en' ? 'en' : 'fr';
 
@@ -19,7 +27,7 @@ export const POST: RequestHandler = async ({ request }) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': ANTHROPIC_API_KEY,
+      'x-api-key': apiKey,
       'anthropic-version': '2023-06-01'
     },
     body: JSON.stringify({
