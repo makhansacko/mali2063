@@ -94,23 +94,24 @@
         const { done, value } = await reader.read();
         if (done) break;
 
-        buffer += decoder.decode(value, { stream: true });
+        buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
         const lines = buffer.split('\n');
         buffer = lines.pop() ?? '';
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.slice(6);
-            if (data === '[DONE]') break;
+        for (const raw of lines) {
+          const line = raw.trim();
+          if (!line.startsWith('data:')) continue;
+          const data = line.slice(5).trim();
+          if (data === '[DONE]') break;
 
-            try {
-              const parsed = JSON.parse(data);
-              if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
-                fullContent += parsed.delta.text;
-              }
-            } catch {
-              // skip malformed chunks
+          try {
+            const parsed = JSON.parse(data);
+            const text = parsed.delta?.text;
+            if (parsed.type === 'content_block_delta' && typeof text === 'string') {
+              fullContent += text;
             }
+          } catch {
+            // skip malformed chunks
           }
         }
       }
