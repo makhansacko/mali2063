@@ -5,6 +5,7 @@
 
 <svelte:head>
   <title>{$t('indicateursPage.metaTitle')}</title>
+  <meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
 <div class="indicateurs-page">

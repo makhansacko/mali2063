@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
 
-const pages = ['/', '/indicateurs', '/suivi', '/apropos', '/analyses'];
+const pages = ['/', '/apropos', '/analyses'];
 
 export const prerender = true;
 
